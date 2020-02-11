@@ -15,13 +15,14 @@ public class Gui extends JFrame{
 
 	public Gui() {
 		this.initWindow();
-
-
 	}
 
 	protected void initWindow()
 	{
 		JFrame frame = new JFrame("Engine Caculator");
+		JPanel panel = new JPanel();
+		frame.add(panel);
+
 		frame.setSize(350, 200);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Schließt nicht nur das Fenster sondern beendet die ganze Anwendung
 
