@@ -20,6 +20,5 @@ private Double PistonRadius;
     public PistonArea(Double area, Double PistonRadius){
         setArea(0.0);
         setPistonRadius(0.0);
-        return get;
     }
 }

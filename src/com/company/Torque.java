@@ -4,9 +4,9 @@ public class Torque extends MotorLeistung {
     Double area;
     Double lever;
     Double torque;
+
     public Torque(PistonArea pistonArea, Lever lever){
         pistonArea.setArea(0.0);
-        lever.set
     }
 
     public Double getTorque() {
