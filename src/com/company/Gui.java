@@ -4,46 +4,118 @@ import java.awt.*;
 
 public class Gui extends JFrame{
 
-	//JTextField	textFieldPistonDiameter;		//Kolbendurchmesser
-	//JTextField	textFieldPistonStroke;			//Kolbenhub
-	//JTextField	textFieldNrOfCyl;				//ylinderanzahl
-	//JTextField	textFieldCrankshaftRadius;		//Korbelwellenradius
-	//JTextField	textFieldWidthConnectingRod;	//Pleuelbreite
-	//JTextField	textFieldLenghtConnectingRod;	//Pleuellänge
-	//JTextField	textFieldOperatingPressure;		//Betriebsdruck
-	//JButton		buttonTheoretischeLeistungskurve;
+	private JPanel northContentPanel;
+	private JPanel southContentPanel;
+
+	private JTextField textFieldPistonDiameter;
+	private JTextField textFieldNrOfCyl;
+	private JTextField textFieldCrankshaftRadius;
+	private JTextField textFieldWidthConnetingRod;
+	private JTextField textFieldLengthConnectingRod;
+	private JTextField textFieldOperatingPressure;
+	private JTextField textFieldPistonStroke;
+
+	private JButton buttonTheoretischeLeistungskurve;
+
 
 	public Gui() {
-		this.initWindow();
+
+		northContentPanel = new JPanel();
+		southContentPanel = new JPanel();
+
+
+		textFieldPistonDiameter = new JTextField();					//Kolbendurchmesser
+		textFieldNrOfCyl = new JTextField();
+		textFieldCrankshaftRadius = new JTextField();
+		textFieldWidthConnetingRod = new JTextField();
+		textFieldLengthConnectingRod = new JTextField();
+		textFieldOperatingPressure = new JTextField();
+		textFieldPistonStroke = new JTextField();
+
+		buttonTheoretischeLeistungskurve = new JButton("Theoretische Leistung berechnen");
+
+		initWindow();
 	}
 
 	protected void initWindow()
 	{
-		JFrame frame = new JFrame("Engine Caculator");
-		JPanel panel = new JPanel();
-		frame.add(panel);
+		this.setTitle("Engine Calculator");
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Schließt nicht nur das Fenster sondern beendet die ganze Anwendung
+		this.setSize(500,250);
+		this.setLocationRelativeTo(null);
 
-		frame.setSize(350, 200);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	//Schließt nicht nur das Fenster sondern beendet die ganze Anwendung
+		//northContentPanel.setBackground(Color.GREEN);
 
-		JPanel contentPanel = new JPanel();
-		contentPanel.setLayout( new GridLayout(8,3) );
+		northContentPanel.setLayout( new GridLayout(0,3));
 
-		JLabel jLabelPistonDiameter = new JLabel();
-		JTextField textFieldPistonDiameter = new JTextField();					//Kolbendurchmesser
+		northContentPanel.add(new JLabel("Piston Diameter: "));
+		northContentPanel.add(textFieldPistonDiameter);
+		northContentPanel.add(new JLabel("mm"));
 
-		JButton buttonTheoretischeLeistungskurve = new JButton("Theoretische Leistung berechnen");
+		northContentPanel.add(new JLabel("Number of cylinders: "));
+		northContentPanel.add(textFieldNrOfCyl);
+		northContentPanel.add(new JLabel("Pieces"));
 
-		contentPanel.add(textFieldPistonDiameter);
+		northContentPanel.add(new JLabel("Crankshaft radius: "));
+		northContentPanel.add(textFieldCrankshaftRadius);
+		northContentPanel.add(new JLabel("mm"));
 
-		contentPanel.add(buttonTheoretischeLeistungskurve);
+		northContentPanel.add(new JLabel("Width of connecting rod: "));
+		northContentPanel.add(textFieldWidthConnetingRod);
+		northContentPanel.add(new JLabel("mm"));
 
-		jLabelPistonDiameter.add(buttonTheoretischeLeistungskurve);
+		northContentPanel.add(new JLabel("Length of connecting rod:"));
+		northContentPanel.add(textFieldLengthConnectingRod);
+		northContentPanel.add(new JLabel("mm"));
 
-		frame.getContentPane().add(BorderLayout.CENTER,contentPanel);
-		frame.setSize(500,200);
-		frame.setVisible(true);
+		northContentPanel.add(new JLabel("Piston stroke: "));
+		northContentPanel.add(textFieldPistonStroke);
+		northContentPanel.add(new JLabel("mm"));
+
+		northContentPanel.add(new JLabel("Operating Pressure: "));
+		northContentPanel.add(textFieldOperatingPressure);
+		northContentPanel.add(new JLabel("Bar"));
+
+		buttonTheoretischeLeistungskurve.addActionListener(event -> {
+			String[] input = {
+					textFieldPistonDiameter.getText(),
+					textFieldNrOfCyl.getText(),
+					textFieldCrankshaftRadius.getText(),
+					textFieldWidthConnetingRod.getText(),
+					textFieldLengthConnectingRod.getText(),
+					textFieldPistonStroke.getText(),
+					textFieldOperatingPressure.getText()
+			};
+			initObject(input);
+		});
 
 
+		southContentPanel.add(buttonTheoretischeLeistungskurve);
+
+		this.add(BorderLayout.NORTH,northContentPanel);
+		this.add(BorderLayout.SOUTH,southContentPanel);
+
+		this.setVisible(true);
+
+	}
+
+	private String initObject(String[] input){		//Exception handling
+
+		double[] values = new double[input.length];
+		for(int i = 0; i < input.length; i++) {
+			try{
+				values[i] = Double.parseDouble(input[i]);
+			}
+			catch (NumberFormatException e){
+				System.err.println("Fehler: Falscher Typ");
+				
+			}
+
+			if(input[i] != null) {
+				System.out.println(input[i]);
+			}
+		}
+
+		return null;
 	}
 }
